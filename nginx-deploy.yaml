@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kubernetes.io/change-cause: "Nginx v1.15.1"
+  labels:
+    run: nginx-deploy
+  name: nginx-deploy
+spec:
+  replicas: 5
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      run: nginx-deploy
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: nginx-deploy
+    spec:
+      containers:
+      - image: nginx:1.15.1
+        imagePullPolicy: IfNotPresent
+        name: nginx-deploy

@@ -38,7 +38,22 @@ spec:
         env:
           # Use secret in real usage
         - name: MYSQL_ROOT_PASSWORD
-          value: password
+          valueFrom: 
+            secretKeyRef:
+              name: mysql-credentials
+              key: rootwp
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: user
+        - name: MYSQL-PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: password
+        - name: MYSQL_DATABASE
+          value: wp-db        
         livenessProbe:
           tcpSocket:
             port: 3306

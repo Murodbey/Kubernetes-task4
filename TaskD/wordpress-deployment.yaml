@@ -38,7 +38,7 @@ spec:
         - name: WORDPRESS_DB_HOST
           value: mysql-wp
         - name: WORDPRESS_DB_PASSWORD
-          value: 
+          valueFrom: 
             secretKeyRef:
               name: mysql-credentials
               key: password
